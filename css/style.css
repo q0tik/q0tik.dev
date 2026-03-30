@@ -1,0 +1,31 @@
+/* === Reset === */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === Palette === */
+:root {
+  --bg: #0a0a0a;
+  --surface: #1a1a2e;
+  --text: #e0e0e0;
+  --accent-green: #00ff88;
+  --accent-pink: #ff0080;
+  --accent-blue: #00bfff;
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-body: 'Courier New', Courier, monospace;
+  --navbar-height: 48px;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--navbar-height);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
