@@ -12,60 +12,87 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
-    <div class="nav-links">
-      <a href="#about" class="nav-link">About</a>
-      <a href="#projects" class="nav-link">Projects</a>
-      <a href="#blog" class="nav-link">Blog</a>
-      <a href="#links" class="nav-link">Links</a>
-    </div>
+  <canvas id="particles-canvas"></canvas>
+  <nav class="navbar" id="navbar">
+    <button class="terminal-btn" id="terminal-btn" aria-label="Open terminal"><div class="terminal-btn-sprite"></div></button>
+    <div class="cat-container cat-lying" id="cat-lying" aria-hidden="true"></div>
     <div class="cat-container" id="cat" aria-hidden="true"></div>
+    <button class="bulb-toggle" id="bulb-toggle" aria-label="Toggle lights">
+      <img src="assets/bulb/bulb-on.png" alt="" class="bulb-img" id="bulb-img">
+    </button>
+    <div class="nav-socials">
+      <a href="https://github.com/q0tik" target="_blank" rel="noopener" aria-label="GitHub"><img src="assets/icons/git_64x64.png" alt="GitHub" class="nav-icon"></a>
+      <a href="https://q0tik.t.me" target="_blank" rel="noopener" aria-label="Telegram"><img src="assets/icons/tg_pixelart_64x64.png" alt="Telegram" class="nav-icon"></a>
+    </div>
   </nav>
 
   <main>
     <section id="about" class="section">
-      <h2 class="section-title">About</h2>
-      <p>Hello, I'm <span class="highlight">q0tik</span>. Developer, pixel art enthusiast. I build things in gamedev and web, one pixel at a time.</p>
+      <div class="section-title-wrap">
+        <h2 class="section-title">About</h2>
+        <div class="tv-container" aria-hidden="true"><div class="tv-sprite"></div></div>
+      </div>
+      <div class="about-content">
+        <p>I'm <span class="highlight glitch" data-text="q0tik">q0tik</span> — backend engineer with 6+ years of experience. I build high-load systems that handle 50K+ events/sec and process millions in daily transactions. Fintech, crypto, quant trading — from architecture to production. On the side I make games and pixel art.</p>
+        <div class="avatar-frame">
+          <img src="assets/sprites/avatar-circle.png" alt="q0tik" class="avatar-img">
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section">
+      <h2 class="section-title">Skills</h2>
+      <div class="skills-orbit" id="skills-orbit"></div>
     </section>
 
     <section id="projects" class="section">
       <h2 class="section-title">Projects</h2>
       <div class="projects-grid">
-        <div class="project-card">
-          <h3>OverKings2</h3>
-          <p>A strategy game built with Godot Engine. Pixel-art kingdom management with tactical combat.</p>
+        <div class="project-card wip">
+          <div class="project-ribbon">WIP</div>
+          <h3>Voidreign</h3>
+          <p>Pixel-art MMORPG with real-time PvP, classes, crafting, and battles for power. Built with Godot Engine.</p>
           <div class="project-tags">
             <span class="project-tag">Godot</span>
             <span class="project-tag">GDScript</span>
             <span class="project-tag">Pixel Art</span>
+            <span class="project-tag">MMORPG</span>
+          </div>
+        </div>
+        <div class="project-card">
+          <a href="https://t.me/finansoid_bot/finansoid" target="_blank" rel="noopener" class="project-link">Open ↗</a>
+          <h3>Finansoid</h3>
+          <p>Telegram mini-app for family budgeting and trading analytics with multi-currency support and portfolio tracking.</p>
+          <div class="project-tags">
+            <span class="project-tag">Python</span>
+            <span class="project-tag">FastAPI</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">Vue</span>
+            <span class="project-tag">Telegram</span>
+            <span class="project-tag">Railway</span>
           </div>
         </div>
       </div>
     </section>
 
-    <section id="blog" class="section">
-      <h2 class="section-title">Blog</h2>
-      <p>Coming soon...</p>
-    </section>
-
-    <section id="links" class="section">
-      <h2 class="section-title">Links</h2>
-      <div class="links-row">
-        <a href="https://github.com/q0tik" class="social-link" target="_blank" rel="noopener">GitHub</a>
-      </div>
-    </section>
   </main>
 
   <footer class="footer">
     <p>built with <span class="heart">&lt;3</span> by q0tik</p>
+    <span class="konami-hint">▲▲▼▼◄►◄►BA</span>
   </footer>
 
+  <script src="js/bulb.js"></script>
   <script src="js/cat.js"></script>
+  <script src="js/horse.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/skills.js"></script>
+  <script src="js/effects.js"></script>
+  <script src="js/hacker-text.js"></script>
+  <script src="js/konami.js"></script>
+  <script src="js/matrix.js"></script>
+  <script src="js/terminal.js"></script>
+  <script src="js/pixel-explosions.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

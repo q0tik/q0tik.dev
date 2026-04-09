@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+
 /* === Palette === */
 :root {
   --bg: #0a0a0a;
@@ -19,6 +20,10 @@
   --glow-green: 0 0 6px var(--accent-green), 0 0 20px var(--accent-green), 0 0 40px rgba(0, 255, 136, 0.3);
   --glow-pink: 0 0 6px var(--accent-pink), 0 0 20px var(--accent-pink), 0 0 40px rgba(255, 0, 128, 0.3);
   --glow-blue: 0 0 6px var(--accent-blue), 0 0 20px var(--accent-blue), 0 0 40px rgba(0, 191, 255, 0.3);
+}
+
+html, body {
+  overflow-x: hidden;
 }
 
 html {
@@ -37,8 +42,25 @@ body {
   overflow-x: hidden;
 }
 
-a, button, .project-card, .social-link {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='6' y='0' width='4' height='16' fill='%23ff0080'/%3E%3Crect x='0' y='6' width='16' height='4' fill='%23ff0080'/%3E%3C/svg%3E") 8 8, pointer;
+/* Pointer cursor — pink crosshair with dot */
+a, button, .project-card, .social-link,
+.terminal-btn, .terminal-close, .bulb-toggle,
+.skill-tag, .nav-icon, .project-link, .konami-hint {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='6' y='0' width='4' height='16' fill='%23ff0080'/%3E%3Crect x='0' y='6' width='16' height='4' fill='%23ff0080'/%3E%3Crect x='6' y='6' width='4' height='4' fill='%23fff'/%3E%3C/svg%3E") 8 8, pointer;
+}
+
+/* Grab cursor — blue open hand pixels */
+.skills-orbit {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='2' y='0' width='2' height='6' fill='%2300bfff'/%3E%3Crect x='6' y='0' width='2' height='6' fill='%2300bfff'/%3E%3Crect x='10' y='0' width='2' height='6' fill='%2300bfff'/%3E%3Crect x='0' y='6' width='14' height='2' fill='%2300bfff'/%3E%3Crect x='0' y='8' width='14' height='6' fill='%2300bfff'/%3E%3C/svg%3E") 7 8, grab;
+}
+
+.skills-orbit:active {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Crect x='2' y='4' width='2' height='4' fill='%2300bfff'/%3E%3Crect x='6' y='4' width='2' height='4' fill='%2300bfff'/%3E%3Crect x='10' y='4' width='2' height='4' fill='%2300bfff'/%3E%3Crect x='0' y='8' width='14' height='2' fill='%2300bfff'/%3E%3Crect x='0' y='10' width='14' height='6' fill='%2300bfff'/%3E%3C/svg%3E") 7 8, grabbing;
+}
+
+/* Text cursor — green I-beam pixel */
+.terminal-input {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='16'%3E%3Crect x='0' y='0' width='8' height='2' fill='%2300ff88'/%3E%3Crect x='3' y='2' width='2' height='12' fill='%2300ff88'/%3E%3Crect x='0' y='14' width='8' height='2' fill='%2300ff88'/%3E%3C/svg%3E") 4 8, text;
 }
 
 /* === Scanlines + Pixel Grid Overlay === */
@@ -91,6 +113,29 @@ body::after {
 .nav-links {
   display: flex;
   gap: 24px;
+}
+
+.nav-socials {
+  display: flex;
+  gap: 12px;
+  top: 4px;
+  align-items: center;
+  z-index: 102;
+  position: relative;
+}
+
+.nav-icon {
+  width: 28px;
+  height: 28px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  opacity: 0.7;
+  transition: opacity 0.2s, filter 0.2s;
+}
+
+.nav-icon:hover {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px var(--accent-green));
 }
 
 .nav-link {
@@ -168,78 +213,220 @@ body::after {
   transform: translateY(-7px) rotate(-45deg);
 }
 
+/* === Terminal Button (navbar) === */
+.terminal-btn {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 102;
+  transition: filter 0.2s;
+}
+
+.terminal-btn:hover {
+  filter: drop-shadow(0 0 6px var(--accent-green));
+}
+
+.terminal-btn-sprite {
+  width: 32px;
+  height: 32px;
+  background: url('../assets/icons/pc-spritesheet.png') 0 0 / 64px 32px no-repeat;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  animation: terminal-blink 1s steps(2) infinite;
+}
+
+@keyframes terminal-blink {
+  from { background-position: 0 0; }
+  to { background-position: -64px 0; }
+}
+
+/* === Light Bulb Toggle === */
+.bulb-toggle {
+  background: none;
+  border: none;
+  padding: 0;
+  position: absolute;
+  right: 140px;
+  top: 42px;
+  z-index: 101;
+  cursor: pointer;
+  transition: filter 0.2s;
+}
+
+.bulb-toggle:hover {
+  filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.6));
+}
+
+.bulb-img {
+  width: 48px;
+  height: 48px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* === Dark Room Mode === */
+body.lights-off main,
+body.lights-off .footer {
+  background: transparent;
+  transition: color 0.5s;
+}
+
+body.lights-off p,
+body.lights-off .about-content p,
+body.lights-off .project-card p,
+body.lights-off .project-card h3,
+body.lights-off .project-link,
+body.lights-off .project-tag,
+body.lights-off .skill-tag,
+body.lights-off .footer p,
+body.lights-off .footer .heart,
+body.lights-off .konami-hint {
+  color: rgba(224, 224, 224, 0.08) !important;
+  text-shadow: none !important;
+  border-color: transparent;
+}
+
+body.lights-off .section-title {
+  color: rgba(0, 255, 136, 0.7);
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.5), 0 0 16px rgba(0, 255, 136, 0.3);
+  animation: none;
+}
+
+body.lights-off .navbar {
+  border-bottom-color: rgba(0, 255, 136, 0.5);
+  box-shadow: 0 2px 16px rgba(0, 255, 136, 0.15);
+}
+
+body.lights-off .project-card {
+  border-color: transparent;
+  box-shadow: none;
+  background: transparent;
+}
+
+body.lights-off .avatar-frame::before {
+  opacity: 0.5;
+}
+
+body.lights-off .avatar-img {
+  opacity: 0.6;
+}
+
+body.lights-off .highlight,
+body.lights-off .glitch {
+  color: rgba(0, 255, 136, 0.7) !important;
+  text-shadow: 0 0 6px rgba(0, 255, 136, 0.4) !important;
+}
+
+body.lights-off .glitch::before,
+body.lights-off .glitch::after {
+  display: none;
+}
+
+body.lights-off .space-horse {
+  opacity: 0.1;
+}
+
+body.lights-off .project-card:hover p,
+body.lights-off .project-card:hover h3,
+body.lights-off .project-card:hover .project-tag,
+body.lights-off .project-card:hover .project-link {
+  color: rgba(224, 224, 224, 0.6) !important;
+  text-shadow: none !important;
+  transition: color 0.3s;
+}
+
+body.lights-off .project-card:hover h3 {
+  color: var(--accent-pink) !important;
+  text-shadow: 0 0 6px rgba(255, 0, 128, 0.5) !important;
+}
+
+body.lights-off .project-card:hover .project-tag {
+  border-color: rgba(0, 191, 255, 0.2);
+  color: var(--accent-blue) !important;
+}
+
+body.lights-off .project-ribbon {
+  opacity: 0.6;
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.3);
+}
+
+body.lights-off .nav-icon {
+  opacity: 0.2;
+}
+
+body.lights-off .section {
+  border-bottom-color: transparent;
+}
+
+body.lights-off .section-title::before {
+  color: rgba(255, 0, 128, 0.5);
+  text-shadow: 0 0 6px rgba(255, 0, 128, 0.3);
+}
+
+body.lights-off .footer {
+  border-top-color: transparent;
+}
+
 /* === Cat Container (navbar) === */
 .cat-container {
-  position: absolute;
-  right: 24px;
-  bottom: -16px;
-  width: 64px;
-  height: 64px;
+  position: relative;
+  width: 92px;
+  height: 92px;
   overflow: visible;
   z-index: 101;
+  align-self: flex-end;
+  margin-bottom: -30px;
+  margin-left: auto;
+  flex-shrink: 0;
 }
 
 .cat-sprite {
-  width: 64px;
-  height: 64px;
+  width: 92px;
+  height: 92px;
   background-image: url('../assets/cat/cat-spritesheet.png');
   background-repeat: no-repeat;
-  background-size: auto 64px;
   image-rendering: pixelated;
   image-rendering: crisp-edges;
   -ms-interpolation-mode: nearest-neighbor;
 }
 
-/* Cat animation keyframes — placeholder values, adjust per actual spritesheet */
-/* Assumes horizontal strip, each frame 64px wide */
-/* idle: frames 0-3, blink: frames 4-5, head-turn: frames 6-9, groom: frames 10-15 */
-
+/* Gray cat sprite sheet: 736x92, 8 frames, sitting idle */
 @keyframes cat-idle {
-  0%   { background-position: 0 0; }
-  25%  { background-position: -64px 0; }
-  50%  { background-position: -128px 0; }
-  75%  { background-position: -192px 0; }
-  100% { background-position: 0 0; }
-}
-
-@keyframes cat-blink {
-  0%   { background-position: -256px 0; }
-  50%  { background-position: -320px 0; }
-  100% { background-position: -256px 0; }
-}
-
-@keyframes cat-head-turn {
-  0%   { background-position: -384px 0; }
-  25%  { background-position: -448px 0; }
-  50%  { background-position: -512px 0; }
-  75%  { background-position: -576px 0; }
-  100% { background-position: -384px 0; }
-}
-
-@keyframes cat-groom {
-  0%      { background-position: -640px 0; }
-  16.67%  { background-position: -704px 0; }
-  33.33%  { background-position: -768px 0; }
-  50%     { background-position: -832px 0; }
-  66.67%  { background-position: -896px 0; }
-  83.33%  { background-position: -960px 0; }
-  100%    { background-position: -640px 0; }
+  from { background-position: 0 0; }
+  to   { background-position: -736px 0; }
 }
 
 .cat-sprite.idle {
-  animation: cat-idle 0.8s steps(1) infinite;
+  animation: cat-idle 1.6s steps(8) infinite;
 }
 
-.cat-sprite.blink {
-  animation: cat-blink 0.3s steps(1) forwards;
+/* Tricolor lying cat */
+.cat-lying {
+  margin-bottom: -40px;
 }
 
-.cat-sprite.head-turn {
-  animation: cat-head-turn 0.8s steps(1) forwards;
+.cat-lying-sprite {
+  width: 92px;
+  height: 92px;
+  background-image: url('../assets/cat/cat-lying-spritesheet.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  -ms-interpolation-mode: nearest-neighbor;
 }
 
-.cat-sprite.groom {
-  animation: cat-groom 1.2s steps(1) forwards;
+@keyframes cat-paw-swing {
+  from { background-position: 0 0; }
+  to   { background-position: -368px 0; }
+}
+
+.cat-lying-sprite.paw-swing {
+  animation: cat-paw-swing 1.2s steps(4) infinite;
 }
 
 /* === Main Content === */
@@ -288,9 +475,44 @@ main {
 
 /* Decorative bracket before title */
 .section-title::before {
-  content: '> ';
+  content: '>';
   color: var(--accent-pink);
   text-shadow: 0 0 8px var(--accent-pink);
+}
+
+/* Section title wrapper for inline decorations */
+.section-title-wrap {
+  position: relative;
+  margin-bottom: 32px;
+}
+
+.section-title-wrap .section-title {
+  margin-bottom: 0;
+}
+
+/* TV on the About title bar */
+.tv-container {
+  position: absolute;
+  right: 20px;
+  bottom: -29px;
+  width: 92px;
+  height: 92px;
+  overflow: visible;
+}
+
+.tv-sprite {
+  width: 92px;
+  height: 92px;
+  background-image: url('../assets/sprites/tv-spritesheet.png');
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  animation: tv-noise 0.6s steps(4) infinite;
+}
+
+@keyframes tv-noise {
+  from { background-position: 0 0; }
+  to   { background-position: -368px 0; }
 }
 
 /* Blinking cursor after title */
@@ -307,16 +529,168 @@ main {
 }
 
 /* === About Section === */
+.about-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
 #about p {
   font-size: 15px;
   line-height: 1.8;
   max-width: 680px;
   color: var(--text);
+  flex: 1;
 }
 
 #about .highlight {
   color: var(--accent-green);
   text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
+}
+
+/* Pixel circle avatar */
+.avatar-frame {
+  flex-shrink: 0;
+  width: 160px;
+  height: 160px;
+  margin-right: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Pixel circle border overlay */
+.avatar-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url('../assets/sprites/circle-border.png') center / 100% 100% no-repeat;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+/* === Skills Orbit === */
+.skills-orbit {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  perspective: 800px;
+  overflow: visible;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.skills-orbit:active {
+  cursor: grabbing;
+}
+
+.skill-tag {
+  position: absolute;
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  padding: 6px 12px;
+  border: 1px solid;
+  white-space: nowrap;
+  transition: text-shadow 0.2s, border-color 0.2s, transform 0.1s;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.skill-tag[data-group="backend"] {
+  color: var(--accent-green);
+  border-color: rgba(0, 255, 136, 0.3);
+  text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
+}
+
+.skill-tag[data-group="data"] {
+  color: var(--accent-blue);
+  border-color: rgba(0, 191, 255, 0.3);
+  text-shadow: 0 0 4px rgba(0, 191, 255, 0.3);
+}
+
+.skill-tag[data-group="infra"] {
+  color: var(--accent-pink);
+  border-color: rgba(255, 0, 128, 0.3);
+  text-shadow: 0 0 4px rgba(255, 0, 128, 0.3);
+}
+
+.skill-tag:hover {
+  z-index: 100 !important;
+  transform: scale(1.2) !important;
+}
+
+.skill-tag[data-group="backend"]:hover {
+  text-shadow: 0 0 8px var(--accent-green), 0 0 20px var(--accent-green);
+  border-color: var(--accent-green);
+  box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
+}
+
+.skill-tag[data-group="data"]:hover {
+  text-shadow: 0 0 8px var(--accent-blue), 0 0 20px var(--accent-blue);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 12px rgba(0, 191, 255, 0.3);
+}
+
+.skill-tag[data-group="infra"]:hover {
+  text-shadow: 0 0 8px var(--accent-pink), 0 0 20px var(--accent-pink);
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 12px rgba(255, 0, 128, 0.3);
+}
+
+/* === Project WIP Ribbon === */
+.project-card.wip {
+  overflow: hidden;
+}
+
+.project-ribbon {
+  position: absolute;
+  top: 20px;
+  right: -35px;
+  width: 140px;
+  text-align: center;
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: #0a0a0a;
+  background: #ffcc00;
+  padding: 4px 0;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(255, 204, 0, 0.5);
+  z-index: 10;
+  letter-spacing: 1px;
+}
+
+/* === Project Link Button === */
+.project-link {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-pixel);
+  font-size: 7px;
+  color: var(--accent-blue);
+  text-decoration: none;
+  border: 1px solid rgba(0, 191, 255, 0.3);
+  padding: 5px 10px;
+  transition: all 0.2s;
+  z-index: 10;
+}
+
+.project-link:hover {
+  color: #fff;
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+  text-shadow: 0 0 6px var(--accent-blue);
 }
 
 /* === Projects Grid === */
@@ -332,6 +706,9 @@ main {
   padding: 24px;
   position: relative;
   transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
 }
 
 /* Pixel corner decorations */
@@ -372,10 +749,12 @@ main {
   font-size: 14px;
   color: rgba(224, 224, 224, 0.8);
   line-height: 1.6;
+  flex: 1;
 }
 
 .project-card .project-tags {
-  margin-top: 16px;
+  margin-top: auto;
+  padding-top: 16px;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -473,12 +852,27 @@ main {
 
 /* === Footer === */
 .footer {
+  position: relative;
   text-align: center;
   padding: 40px 24px;
   font-family: var(--font-pixel);
   font-size: 8px;
   color: rgba(224, 224, 224, 0.3);
   border-top: 1px solid rgba(0, 255, 136, 0.08);
+}
+
+.konami-hint {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  font-size: 6px;
+  color: rgba(224, 224, 224, 0.06);
+  letter-spacing: 2px;
+  transition: color 0.3s;
+}
+
+.konami-hint:hover {
+  color: rgba(224, 224, 224, 0.15);
 }
 
 .footer .heart {
@@ -493,6 +887,413 @@ main {
   15% { transform: scale(1.15); }
   30% { transform: scale(1); }
   45% { transform: scale(1.1); }
+}
+
+/* === Neon Flicker on Section Titles === */
+@keyframes neon-flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 8px var(--accent-green),
+      0 0 24px var(--accent-green),
+      0 0 48px rgba(0, 255, 136, 0.4),
+      0 0 80px rgba(0, 255, 136, 0.15);
+    opacity: 1;
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+    opacity: 0.8;
+  }
+}
+
+.section-title {
+  animation: neon-flicker 4s ease-in-out infinite;
+}
+
+/* === Glitch Effect on .highlight (q0tik) === */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.glitch::before {
+  color: var(--accent-pink);
+  animation: glitch-shift 3s infinite linear alternate-reverse;
+  clip-path: inset(0 0 60% 0);
+  z-index: -1;
+}
+
+.glitch::after {
+  color: var(--accent-blue);
+  animation: glitch-shift 2s infinite linear alternate;
+  clip-path: inset(60% 0 0 0);
+  z-index: -1;
+}
+
+@keyframes glitch-shift {
+  0%, 85% { transform: translate(0); }
+  86% { transform: translate(-3px, 1px); }
+  88% { transform: translate(3px, -1px); }
+  90% { transform: translate(-2px, -1px); }
+  92% { transform: translate(2px, 1px); }
+  94% { transform: translate(-1px, 2px); }
+  96% { transform: translate(1px, -2px); }
+  100% { transform: translate(0); }
+}
+
+/* === Pulsing Avatar Glow (circular) === */
+@keyframes avatar-glow-pulse {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.05); }
+}
+
+.avatar-frame::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90%;
+  height: 90%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 255, 136, 0.3) 0%, rgba(0, 255, 136, 0.1) 50%, transparent 70%);
+  transform: translate(-50%, -50%);
+  animation: avatar-glow-pulse 2.5s ease-in-out infinite;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* === Animated Arrow Before Titles === */
+@keyframes arrow-bounce {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(4px); }
+}
+
+.section-title::before {
+  display: inline-block;
+  animation: arrow-bounce 1.5s ease-in-out infinite;
+  margin-right: 14px;
+}
+
+/* === Project Card Glow Hover === */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, var(--accent-pink), var(--accent-blue), var(--accent-green));
+  opacity: 0;
+  z-index: -1;
+  filter: blur(12px);
+  transition: opacity 0.4s ease;
+}
+
+.project-card:hover::after {
+  opacity: 0.15;
+}
+
+/* === Tag Shimmer on Hover === */
+.project-tag {
+  transition: all 0.2s ease;
+}
+
+.project-card:hover .project-tag {
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 8px rgba(0, 191, 255, 0.3);
+  text-shadow: 0 0 6px rgba(0, 191, 255, 0.5);
+}
+
+/* === Space Horse === */
+.space-horse {
+  position: fixed;
+  width: 120px;
+  height: 120px;
+  z-index: -1;
+  pointer-events: none;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  opacity: 0.35;
+}
+
+.space-horse.east {
+  background-image: url('../assets/horse/horse-run-east.png');
+  animation: horse-run-east 0.8s steps(8) infinite;
+}
+
+.space-horse.west {
+  background-image: url('../assets/horse/horse-run-west.png');
+  animation: horse-run-west 0.8s steps(8) infinite;
+}
+
+@keyframes horse-run-east {
+  from { background-position: 0 0; }
+  to { background-position: -960px 0; }
+}
+
+@keyframes horse-run-west {
+  from { background-position: 0 0; }
+  to { background-position: -960px 0; }
+}
+
+/* === Floating Particles Canvas === */
+#particles-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* === Typewriter Effect === */
+.typewriter {
+  overflow: hidden;
+  border-right: 2px solid var(--accent-green);
+  white-space: nowrap;
+  width: 0;
+  animation: typewriter-reveal 2.5s steps(60, end) 0.5s forwards,
+             typewriter-blink 0.8s steps(1) infinite;
+}
+
+@keyframes typewriter-reveal {
+  to { width: 100%; }
+}
+
+@keyframes typewriter-blink {
+  0%, 50% { border-right-color: var(--accent-green); }
+  51%, 100% { border-right-color: transparent; }
+}
+
+/* === Footer Neon Flicker === */
+@keyframes footer-glow {
+  0%, 100% { color: rgba(224, 224, 224, 0.3); }
+  50% { color: rgba(224, 224, 224, 0.5); text-shadow: 0 0 4px rgba(0, 255, 136, 0.2); }
+}
+
+.footer p {
+  animation: footer-glow 4s ease-in-out infinite;
+}
+
+/* === Navbar Border Glow Pulse === */
+@keyframes navbar-glow {
+  0%, 100% {
+    box-shadow: 0 2px 12px rgba(0, 255, 136, 0.15), 0 1px 0 rgba(0, 255, 136, 0.3);
+  }
+  50% {
+    box-shadow: 0 2px 20px rgba(0, 255, 136, 0.3), 0 1px 0 rgba(0, 255, 136, 0.5);
+  }
+}
+
+.navbar {
+  animation: navbar-glow 3s ease-in-out infinite;
+}
+
+/* === Konami Overdrive === */
+@keyframes overdrive-flash {
+  0%, 100% { opacity: 0; }
+  5%, 10% { opacity: 0.15; }
+  15%, 20% { opacity: 0; }
+  25%, 30% { opacity: 0.1; }
+  50% { opacity: 0.2; }
+  70%, 75% { opacity: 0.05; }
+}
+
+@keyframes overdrive-scanlines {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 8px; }
+}
+
+@keyframes overdrive-shake {
+  0%, 100% { transform: translate(0); }
+  10% { transform: translate(-2px, 1px); }
+  20% { transform: translate(2px, -1px); }
+  30% { transform: translate(-1px, -2px); }
+  40% { transform: translate(1px, 2px); }
+  50% { transform: translate(-2px, -1px); }
+  60% { transform: translate(2px, 1px); }
+  70% { transform: translate(-1px, 2px); }
+  80% { transform: translate(1px, -1px); }
+  90% { transform: translate(-1px, -2px); }
+}
+
+body.overdrive {
+  animation: overdrive-shake 0.15s linear infinite;
+}
+
+body.overdrive::before {
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 1px,
+      rgba(0, 255, 136, 0.1) 1px,
+      rgba(0, 255, 136, 0.1) 2px
+    );
+  animation: overdrive-scanlines 0.2s linear infinite;
+}
+
+body.overdrive::after {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 255, 136, 0.05) 0%,
+    rgba(255, 0, 128, 0.08) 50%,
+    rgba(0, 0, 0, 0.7) 100%
+  );
+  animation: overdrive-flash 0.5s ease infinite;
+}
+
+body.overdrive .section-title {
+  animation: neon-flicker 0.2s ease-in-out infinite;
+  color: #fff;
+  text-shadow:
+    0 0 10px var(--accent-green),
+    0 0 30px var(--accent-green),
+    0 0 60px var(--accent-green),
+    0 0 100px rgba(0, 255, 136, 0.5);
+}
+
+body.overdrive .navbar {
+  box-shadow:
+    0 2px 30px rgba(0, 255, 136, 0.5),
+    0 1px 0 rgba(0, 255, 136, 0.8);
+  border-bottom-color: #fff;
+}
+
+body.overdrive .glitch::before,
+body.overdrive .glitch::after {
+  animation: glitch-shift 0.1s infinite linear alternate;
+}
+
+body.overdrive .project-card {
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 20px rgba(255, 0, 128, 0.3);
+}
+
+body.overdrive .skill-tag {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+}
+
+.konami-msg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-pixel);
+  font-size: 28px;
+  color: #fff;
+  text-shadow:
+    0 0 10px var(--accent-green),
+    0 0 30px var(--accent-green),
+    0 0 60px var(--accent-pink),
+    0 0 100px var(--accent-pink);
+  z-index: 10000;
+  pointer-events: none;
+  animation: konami-text 3.5s ease-out forwards;
+  letter-spacing: 6px;
+}
+
+@keyframes konami-text {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+  10% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  20% { transform: translate(-50%, -50%) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.5); }
+}
+
+/* === Terminal Overlay === */
+.terminal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.terminal-window {
+  width: 90%;
+  max-width: 600px;
+  max-height: 70vh;
+  background: #0c0c0c;
+  border: 1px solid var(--accent-green);
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.2), 0 0 60px rgba(0, 255, 136, 0.05);
+  display: flex;
+  flex-direction: column;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+}
+
+.terminal-header {
+  padding: 8px 12px;
+  background: rgba(0, 255, 136, 0.08);
+  border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+  color: var(--accent-green);
+  font-family: var(--font-pixel);
+  font-size: 9px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.terminal-close {
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.terminal-close:hover {
+  opacity: 1;
+}
+
+.terminal-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  min-height: 200px;
+  max-height: 50vh;
+}
+
+.terminal-line {
+  color: var(--accent-green);
+  white-space: pre-wrap;
+  word-break: break-all;
+  margin-bottom: 4px;
+  line-height: 1.5;
+  text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-top: 1px solid rgba(0, 255, 136, 0.1);
+}
+
+.terminal-prompt {
+  color: var(--accent-pink);
+  text-shadow: 0 0 4px rgba(255, 0, 128, 0.3);
+  font-weight: bold;
+}
+
+.terminal-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--accent-green);
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  caret-color: var(--accent-green);
+  text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
 }
 
 /* === Reduced Motion === */
@@ -546,42 +1347,41 @@ main {
 
 /* === Responsive (<=768px) === */
 @media (max-width: 768px) {
-  .burger {
-    display: flex;
+  .navbar {
+    padding: 0 12px;
   }
 
-  .nav-links {
-    display: none;
-    position: absolute;
-    top: var(--navbar-height);
-    left: 0;
-    width: 100%;
-    flex-direction: column;
-    background: var(--surface);
-    border-bottom: 2px solid var(--accent-green);
-    box-shadow: 0 4px 20px rgba(0, 255, 136, 0.1);
-    padding: 8px 0;
-    gap: 0;
+  .nav-socials {
+    gap: 8px;
   }
 
-  .nav-links.open {
-    display: flex;
-  }
-
-  .nav-link {
-    padding: 12px 24px;
-    font-size: 10px;
-    border-bottom: 1px solid rgba(0, 255, 136, 0.05);
-  }
-
-  .nav-link::after {
-    display: none;
+  .nav-icon {
+    width: 24px;
+    height: 24px;
   }
 
   .cat-container {
     transform: scale(0.75);
-    transform-origin: bottom right;
-    right: 60px;
+    transform-origin: bottom center;
+    margin-bottom: -23px;
+  }
+
+  .cat-lying {
+    transform: scale(0.75);
+    transform-origin: bottom center;
+    margin-bottom: -30px;
+  }
+
+  .about-content {
+    flex-direction: column-reverse;
+    gap: 24px;
+    text-align: center;
+  }
+
+  .avatar-frame {
+    width: 120px;
+    height: 120px;
+    margin-right: 0;
   }
 
   .section {
@@ -594,14 +1394,5 @@ main {
 
   .projects-grid {
     grid-template-columns: 1fr;
-  }
-
-  .links-row {
-    flex-direction: column;
-  }
-
-  .social-link {
-    text-align: center;
-    justify-content: center;
   }
 }
