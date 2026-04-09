@@ -169,13 +169,14 @@
 
   container.addEventListener('touchmove', function (e) {
     if (!isDragging) return;
+    e.preventDefault();
     var dx = e.touches[0].clientX - lastX;
     var dy = e.touches[0].clientY - lastY;
     angleY += dx * 0.005;
     angleX += dy * 0.005;
     lastX = e.touches[0].clientX;
     lastY = e.touches[0].clientY;
-  }, { passive: true });
+  }, { passive: false });
 
   container.addEventListener('touchend', function () {
     isDragging = false;
