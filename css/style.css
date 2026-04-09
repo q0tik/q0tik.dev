@@ -1230,7 +1230,7 @@ body.overdrive .skill-tag {
   display: flex;
   flex-direction: column;
   font-family: 'Courier New', monospace;
-  font-size: 13px;
+  font-size: 16px;
 }
 
 .terminal-header {
@@ -1291,7 +1291,7 @@ body.overdrive .skill-tag {
   outline: none;
   color: var(--accent-green);
   font-family: 'Courier New', monospace;
-  font-size: 13px;
+  font-size: 16px;
   caret-color: var(--accent-green);
   text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
 }

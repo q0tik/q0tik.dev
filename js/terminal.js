@@ -54,12 +54,31 @@
       return '';
     },
     'sudo rm -rf /': function () {
-      return [
-        'Deleting system files...',
-        '███████████████████ 100%',
-        '',
-        'Just kidding. Nice try though.'
-      ].join('\n');
+      printLine('Deleting system files...');
+      var bar = document.createElement('div');
+      bar.className = 'terminal-line';
+      bar.textContent = '';
+      output.appendChild(bar);
+
+      var progress = 0;
+      var full = 20;
+      var interval = setInterval(function () {
+        progress++;
+        var filled = '';
+        for (var i = 0; i < progress; i++) filled += '█';
+        for (var j = progress; j < full; j++) filled += '░';
+        bar.textContent = filled + ' ' + (progress * 5) + '%';
+        output.scrollTop = output.scrollHeight;
+
+        if (progress >= full) {
+          clearInterval(interval);
+          printLine('');
+          printLine('Just kidding. Nice try though.');
+          output.scrollTop = output.scrollHeight;
+        }
+      }, 120);
+
+      return '';
     }
   };
 
@@ -123,6 +142,9 @@
     isOpen = !isOpen;
     overlay.style.display = isOpen ? 'flex' : 'none';
     if (isOpen) {
+      // Prevent iOS zoom on focus
+      var viewport = document.querySelector('meta[name=viewport]');
+      if (viewport) viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0');
       input.focus();
     }
   }
