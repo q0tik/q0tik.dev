@@ -1,0 +1,40 @@
+name: deploy
+
+# Авто-деплой на домашний сервер (self-hosted runner на macOS).
+# Триггер — push в main. Раннер делает pull в постоянной папке проекта
+# (~/Services/q0tik-dev, часть монолитного стека ~/Services) и
+# пересобирает только сервис q0tik-dev, не трогая остальные контейнеры.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}   # позволяет запустить деплой вручную из GitHub UI
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, macos, q0tik-dev]
+    env:
+      PROJECT_DIR: /Users/q0tik/Services/q0tik-dev
+      COMPOSE_DIR: /Users/q0tik/Services
+    steps:
+      - name: Pull & redeploy
+        run: |
+          # launchd даёт урезанный PATH — добавляем пути к docker/git вручную
+          export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+          set -euo pipefail
+          cd "$PROJECT_DIR"
+          git fetch origin main
+          git reset --hard origin/main
+          cd "$COMPOSE_DIR"
+          docker compose up -d --build q0tik-dev
+          docker image prune -f
+
+      - name: Smoke check
+        run: |
+          export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+          sleep 3
+          curl -sf -o /dev/null http://localhost:8081/ && echo "OK: site is up"
