@@ -686,6 +686,11 @@ main {
   z-index: 10;
 }
 
+/* Заголовок не должен заезжать под абсолютную кнопку-ссылку */
+.project-link + h3 {
+  padding-right: 120px;
+}
+
 .project-link:hover {
   color: #fff;
   border-color: var(--accent-blue);

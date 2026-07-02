@@ -20,19 +20,20 @@
       ].join('\n');
     },
     whoami: function () {
-      return 'q0tik — backend engineer, 6+ years.\nFintech, crypto, quant trading.\nBuilding high-load systems by day,\npixel art games by night.';
+      return 'q0tik — backend engineer (Python & Go), 6+ years.\nFintech, crypto, quant trading.\nBuilt a p2p payments startup from scratch,\nled a team of 12+. Pixel art games by night.';
     },
     skills: function () {
       return [
-        '[backend]  Python, FastAPI, Django, asyncio, Celery',
-        '[data/ai]  pandas, NumPy, Claude API, LangChain',
-        '[infra]    PostgreSQL, Redis, Kafka, Docker, K8s'
+        '[backend]  Python, Go, FastAPI, asyncio, gRPC, Celery',
+        '[data/ai]  Claude API, LangChain, MCP, RAG, ClickHouse',
+        '[infra]    PostgreSQL, Redis, Kafka, Docker, K8s, AWS'
       ].join('\n');
     },
     projects: function () {
       return [
-        'Voidreign — pixel-art MMORPG [WIP]',
-        'Finansoid — Telegram mini-app for budgeting'
+        'Finansoid — Telegram mini-app for budgeting',
+        'q0tssistant — personal AI assistant on OpenClaw',
+        'Mentoring — 1-on-1, how to become a 10x engineer'
       ].join('\n');
     },
     contacts: function () {
