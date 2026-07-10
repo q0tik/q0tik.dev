@@ -16,10 +16,10 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: [self-hosted, macos, q0tik-dev]
+    runs-on: [self-hosted, linux, q0tik-dev]
     env:
-      PROJECT_DIR: /Users/q0tik/Services/q0tik-dev
-      COMPOSE_DIR: /Users/q0tik/Services
+      PROJECT_DIR: /home/q0tik/Services/q0tik-dev
+      COMPOSE_DIR: /home/q0tik/Services
     steps:
       - name: Pull & redeploy
         run: |
