@@ -37,7 +37,7 @@
       ].join('\n');
     },
     contacts: function () {
-      return 'GitHub:   github.com/q0tik\nTelegram: q0tik.t.me';
+      return 'GitHub:   github.com/q0tik\nLinkedIn: linkedin.com/in/maksim-topchilo\nTelegram: q0tik.t.me';
     },
     matrix: function () {
       if (window.__startMatrix) {
