@@ -6,3 +6,11 @@ docs
 CLAUDE.md
 *.md
 node_modules
+
+# source art, not referenced by the page
+assets/sprites/avatar.png
+assets/sprites/circle-mask.png
+assets/sprites/crt-monitor.png
+assets/cat/reference-chubrik.png
+assets/icons/pc-256.png
+assets/icons/pc-257.png

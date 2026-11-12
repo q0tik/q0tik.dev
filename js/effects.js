@@ -39,6 +39,10 @@
         inTag = false;
       } else if (inTag) {
         tagBuffer += html[i];
+      } else if (html[i] === '&' && html.indexOf(';', i) > i && html.indexOf(';', i) - i < 10) {
+        var end = html.indexOf(';', i);
+        chars.push({ type: 'char', value: html.slice(i, end + 1) });
+        i = end;
       } else {
         chars.push({ type: 'char', value: html[i] });
       }

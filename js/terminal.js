@@ -24,9 +24,9 @@
     },
     skills: function () {
       return [
-        '[agents]   Claude Code, MCP, hooks & skills, subagents, evals',
-        '[llm/rag]  Claude API, LangGraph, RAG, pgvector, knowledge graphs',
-        '[backend]  Python, Go, FastAPI, PostgreSQL, Kafka, K8s'
+        '[ai]       Claude Code, MCP, LangGraph, RAG, harness, evals',
+        '[backend]  Python, Go, FastAPI, PostgreSQL, ClickHouse, Kafka',
+        '[infra]    Docker, Kubernetes, Nomad, GitLab CI, Prometheus'
       ].join('\n');
     },
     projects: function () {
@@ -109,7 +109,8 @@
         printLine('$ ' + cmd);
         input.value = '';
 
-        var handler = commands[cmd] || commands[cmd.toLowerCase()];
+        var key = Object.prototype.hasOwnProperty.call(commands, cmd) ? cmd : cmd.toLowerCase();
+        var handler = Object.prototype.hasOwnProperty.call(commands, key) ? commands[key] : null;
         if (handler) {
           var result = handler();
           if (result) printLine(result);
@@ -151,7 +152,7 @@
   }
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === '`' && !e.ctrlKey && !e.metaKey) {
+    if ((e.key === '`' || e.code === 'Backquote') && !e.ctrlKey && !e.metaKey) {
       var tag = document.activeElement.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA') {
         if (!isOpen) return;

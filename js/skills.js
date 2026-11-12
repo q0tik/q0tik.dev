@@ -6,63 +6,52 @@
   if (!container) return;
 
   var skills = [
-    { name: 'LLM Agents', group: 'ai' },
-    { name: 'Claude API', group: 'data' },
-    { name: 'Python', group: 'infra' },
-    { name: 'Harness Engineering', group: 'ai' },
-    { name: 'OpenAI API', group: 'data' },
-    { name: 'Go', group: 'infra' },
-    { name: 'Context Engineering', group: 'ai' },
-    { name: 'OpenRouter', group: 'data' },
-    { name: 'FastAPI', group: 'infra' },
     { name: 'Claude Code', group: 'ai' },
-    { name: 'LangGraph', group: 'data' },
-    { name: 'asyncio', group: 'infra' },
-    { name: 'Hooks & Skills', group: 'ai' },
-    { name: 'LangChain', group: 'data' },
-    { name: 'gRPC', group: 'infra' },
-    { name: 'Subagents', group: 'ai' },
-    { name: 'RAG', group: 'data' },
-    { name: 'PostgreSQL', group: 'infra' },
-    { name: 'Multi-agent', group: 'ai' },
-    { name: 'Hybrid Retrieval', group: 'data' },
-    { name: 'Redis', group: 'infra' },
-    { name: 'MCP', group: 'ai' },
-    { name: 'pgvector', group: 'data' },
-    { name: 'Kafka', group: 'infra' },
-    { name: 'MCP Servers', group: 'ai' },
-    { name: 'Embeddings', group: 'data' },
+    { name: 'Harness Engineering', group: 'ai' },
+    { name: 'Python', group: 'data' },
     { name: 'Docker', group: 'infra' },
-    { name: 'Tool Use', group: 'ai' },
-    { name: 'Knowledge Graphs', group: 'data' },
+    { name: 'Claude API', group: 'ai' },
+    { name: 'Go', group: 'data' },
     { name: 'Kubernetes', group: 'infra' },
-    { name: 'Guardrails', group: 'ai' },
-    { name: 'ClickHouse', group: 'data' },
+    { name: 'MCP', group: 'ai' },
+    { name: 'FastAPI', group: 'data' },
     { name: 'Nomad', group: 'infra' },
-    { name: 'Evals', group: 'ai' },
-    { name: 'pandas', group: 'data' },
+    { name: 'LangGraph', group: 'ai' },
+    { name: 'asyncio', group: 'data' },
+    { name: 'Vault', group: 'infra' },
+    { name: 'LangChain', group: 'ai' },
+    { name: 'gRPC', group: 'data' },
     { name: 'GitLab CI', group: 'infra' },
-    { name: 'Prompt Engineering', group: 'ai' },
+    { name: 'OpenAI API', group: 'ai' },
+    { name: 'WebSocket', group: 'data' },
     { name: 'GitHub Actions', group: 'infra' },
-    { name: 'AI Agents', group: 'ai' },
+    { name: 'OpenRouter', group: 'ai' },
+    { name: 'PostgreSQL', group: 'data' },
     { name: 'Prometheus', group: 'infra' },
+    { name: 'RAG', group: 'ai' },
+    { name: 'Evals', group: 'ai' },
+    { name: 'ClickHouse', group: 'data' },
     { name: 'Grafana', group: 'infra' },
+    { name: 'pgvector', group: 'ai' },
+    { name: 'Redis', group: 'data' },
     { name: 'Linux', group: 'infra' },
+    { name: 'Kafka', group: 'data' },
     { name: 'AWS', group: 'infra' },
-    { name: 'System Design', group: 'infra' }
+    { name: 'pandas', group: 'data' }
   ];
 
   var items = [];
   var radius;
   var angleX = 0;
   var angleY = 0;
-  var targetAngleX = 0;
-  var targetAngleY = 0;
   var isDragging = false;
   var lastX = 0;
   var lastY = 0;
-  var autoSpeedX = 0.002;
-  var autoSpeedY = 0.003;
+  var REDUCED = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+  var BASE_X = REDUCED ? 0 : 0.002;
+  var BASE_Y = REDUCED ? 0 : 0.003;
+  var autoSpeedX = BASE_X;
+  var autoSpeedY = BASE_Y;
 
   // Fibonacci sphere distribution
   function distributeOnSphere(count) {
@@ -125,9 +114,6 @@
     if (!isDragging) {
       angleX += autoSpeedX;
       angleY += autoSpeedY;
-    } else {
-      angleX += (targetAngleX - angleX) * 0.1;
-      angleY += (targetAngleY - angleY) * 0.1;
     }
 
     for (var i = 0; i < items.length; i++) {
@@ -171,8 +157,8 @@
   window.addEventListener('mouseup', function () {
     if (isDragging) {
       isDragging = false;
-      autoSpeedX = 0.002;
-      autoSpeedY = 0.003;
+      autoSpeedX = BASE_X;
+      autoSpeedY = BASE_Y;
     }
   });
 
@@ -187,25 +173,22 @@
 
   container.addEventListener('touchmove', function (e) {
     if (!isDragging) return;
-    e.preventDefault();
     var dx = e.touches[0].clientX - lastX;
-    var dy = e.touches[0].clientY - lastY;
     angleY += dx * 0.005;
-    angleX += dy * 0.005;
     lastX = e.touches[0].clientX;
     lastY = e.touches[0].clientY;
-  }, { passive: false });
+  }, { passive: true });
 
   container.addEventListener('touchend', function () {
     isDragging = false;
-    autoSpeedX = 0.002;
-    autoSpeedY = 0.003;
+    autoSpeedX = BASE_X;
+    autoSpeedY = BASE_Y;
   });
 
-  if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    autoSpeedX = 0;
-    autoSpeedY = 0;
-  }
+
+  window.addEventListener('resize', function () {
+    radius = Math.min(container.offsetWidth / 2.5, 200);
+  });
 
   init();
   render();
