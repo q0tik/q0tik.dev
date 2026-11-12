@@ -144,9 +144,7 @@
     isOpen = !isOpen;
     overlay.style.display = isOpen ? 'flex' : 'none';
     if (isOpen) {
-      // Prevent iOS zoom on focus
-      var viewport = document.querySelector('meta[name=viewport]');
-      if (viewport) viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0');
+      // input is 16px, so iOS doesn't auto-zoom on focus
       input.focus();
     }
   }
