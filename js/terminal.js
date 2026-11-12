@@ -20,19 +20,19 @@
       ].join('\n');
     },
     whoami: function () {
-      return 'q0tik — backend engineer (Python & Go), 6+ years.\nFintech, crypto, quant trading.\nBuilt a p2p payments startup from scratch,\nled a team of 12+. Pixel art games by night.';
+      return 'q0tik — AI engineer. LLM agents & harness:\nMCP, hooks, guardrails, RAG, evals.\n7+ years of fintech backend behind it:\ntrading infra, $2M+/day payments, team of 12+.\nPixel art games by night.';
     },
     skills: function () {
       return [
-        '[backend]  Python, Go, FastAPI, asyncio, gRPC, Celery',
-        '[data/ai]  Claude API, LangChain, MCP, RAG, ClickHouse',
-        '[infra]    PostgreSQL, Redis, Kafka, Docker, K8s, AWS'
+        '[agents]   Claude Code, MCP, hooks & skills, subagents, evals',
+        '[llm/rag]  Claude API, LangGraph, RAG, pgvector, knowledge graphs',
+        '[backend]  Python, Go, FastAPI, PostgreSQL, Kafka, K8s'
       ].join('\n');
     },
     projects: function () {
       return [
-        'Finansoid — Telegram mini-app for budgeting',
-        'q0tssistant — personal AI assistant on OpenClaw',
+        'Finansoid — finance tracker for two, finansoid.app',
+        'q0tssistant — personal AI assistant on Claude Code',
         'Mentoring — 1-on-1, how to become a 10x engineer'
       ].join('\n');
     },

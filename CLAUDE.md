@@ -5,8 +5,8 @@ Personal portfolio website — pixel-art cyberpunk neon aesthetic.
 ## Sections
 
 - **About** — short bio with typewriter effect, pixelated avatar in circle frame
-- **Skills** — 3D rotating tag cloud (drag to spin), grouped: Backend (green), Data/AI (blue), Infra (pink)
-- **Projects** — Voidreign (MMORPG, WIP ribbon), Finansoid (Telegram mini-app)
+- **Skills** — 3D rotating tag cloud (drag to spin), grouped: Agents & harness (green), LLM & retrieval (blue), Backend & infra (pink)
+- **Projects** — Voidreign (MMORPG, WIP ribbon), Finansoid (finansoid.app), q0tssistant, Mentoring
 
 ## Stack
 
@@ -46,9 +46,9 @@ assets/
 - `--bg`: #0a0a0a (background)
 - `--surface`: #1a1a2e (cards, navbar)
 - `--text`: #e0e0e0
-- `--accent-green`: #00ff88 (primary neon, titles, Backend skills)
-- `--accent-pink`: #ff0080 (secondary, project names, Infra skills)
-- `--accent-blue`: #00bfff (tertiary, tags, Data/AI skills)
+- `--accent-green`: #00ff88 (primary neon, titles, Agents skills)
+- `--accent-pink`: #ff0080 (secondary, project names, Backend & infra skills)
+- `--accent-blue`: #00bfff (tertiary, tags, LLM & retrieval skills)
 - `--navbar-height`: 48px
 
 ## Key Patterns

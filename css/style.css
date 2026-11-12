@@ -605,7 +605,7 @@ main {
   user-select: none;
 }
 
-.skill-tag[data-group="backend"] {
+.skill-tag[data-group="ai"] {
   color: var(--accent-green);
   border-color: rgba(0, 255, 136, 0.3);
   text-shadow: 0 0 4px rgba(0, 255, 136, 0.3);
@@ -628,7 +628,7 @@ main {
   transform: scale(1.2) !important;
 }
 
-.skill-tag[data-group="backend"]:hover {
+.skill-tag[data-group="ai"]:hover {
   text-shadow: 0 0 8px var(--accent-green), 0 0 20px var(--accent-green);
   border-color: var(--accent-green);
   box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
