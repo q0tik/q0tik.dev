@@ -20,7 +20,7 @@
       ].join('\n');
     },
     whoami: function () {
-      return 'q0tik — AI engineer. LLM agents & harness:\nMCP, hooks, guardrails, RAG, evals.\n7+ years of fintech backend behind it:\ntrading infra, $2M+/day payments, team of 12+.\nPixel art games by night.';
+      return 'q0tik — AI engineer. LLM agents & harness:\nMCP, hooks, guardrails, RAG, evals.\nYears of fintech backend behind it:\ntrading infra, payments, led a team.\nPixel art games by night.';
     },
     skills: function () {
       return [
