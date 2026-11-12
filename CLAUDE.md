@@ -37,7 +37,7 @@ assets/
   cat/                  — cat spritesheets (gray 8 frames, tricolor 4 frames)
   horse/                — horse run east/west spritesheets (8 frames each)
   sprites/              — avatar, TV spritesheet, circle border/mask
-  icons/                — GitHub, Telegram, PC terminal icons
+  icons/                — GitHub, LinkedIn, Telegram, PC terminal icons
   bulb/                 — light bulb on/off sprites
 ```
 
