@@ -671,6 +671,19 @@ main {
   color: var(--accent-pink);
   text-shadow: 0 0 6px rgba(255, 0, 128, 0.5);
   margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-right: 90px;
+  line-height: 1.6;
+}
+
+.project-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .project-card p {

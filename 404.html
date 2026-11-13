@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#0a0a0a">
+  <title>404 — q0tik</title>
+  <link rel="icon" type="image/png" href="/assets/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    html, body { height: auto; }
+    body { min-height: 100vh; min-height: 100dvh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px 16px; }
+    /* main from style.css reserves navbar space and 100vh - no navbar here */
+    .nf { max-width: 520px; width: 100%; position: relative; z-index: 1; padding-top: 0; min-height: 0; }
+    @media (max-height: 620px) {
+      /* integer pixel scale only: cat 4x -> 3x */
+      .nf-stage { margin-top: 6px; height: 140px; }
+      .nf-cat { width: 99px; height: 123px; margin-left: -64px; }
+      .nf-page { margin-left: 44px; }
+      .nf-title { margin: 10px 0 10px; }
+      .nf-text { margin-bottom: 18px; }
+    }
+    .nf-code {
+      font-family: var(--font-pixel); font-size: clamp(56px, 16vw, 96px); line-height: 1;
+      color: var(--accent-green); position: relative; display: inline-block;
+      text-shadow: 0 0 10px rgba(0, 255, 136, 0.55), 0 0 32px rgba(0, 255, 136, 0.25);
+    }
+    .nf-code::before, .nf-code::after {
+      content: attr(data-text); position: absolute; left: 0; top: 0; text-shadow: none; opacity: 0; pointer-events: none;
+    }
+    .nf-code::before { color: var(--accent-pink); clip-path: inset(0 0 58% 0); animation: nf-glitch-a 4s linear infinite; }
+    .nf-code::after  { color: var(--accent-blue); clip-path: inset(52% 0 0 0); animation: nf-glitch-b 4s linear infinite; }
+    @keyframes nf-glitch-a {
+      0%, 79.9% { opacity: 0; transform: none; }
+      80%, 82% { opacity: 1; transform: translate(-6px, 0); }
+      82.1%, 83.9% { opacity: 0; }
+      84%, 85% { opacity: 1; transform: translate(4px, 0); }
+      85.1%, 100% { opacity: 0; transform: none; }
+    }
+    @keyframes nf-glitch-b {
+      0%, 80.4% { opacity: 0; transform: none; }
+      80.5%, 82.5% { opacity: 1; transform: translate(6px, 0); }
+      82.6%, 100% { opacity: 0; transform: none; }
+    }
+    .nf-stage { position: relative; height: 184px; width: 300px; max-width: 100%; margin: 18px auto 0; }
+    .nf-stage img { position: absolute; bottom: 12px; image-rendering: pixelated; image-rendering: crisp-edges; }
+    .nf-floor { position: absolute; left: 0; right: 0; bottom: 8px; height: 4px; background: rgba(224, 224, 224, 0.08); }
+    .nf-cat {
+      position: absolute; bottom: 12px; left: 50%; margin-left: -86px; width: 132px; height: 164px;
+      background: url('/assets/404/cat-sheet.png') 0 0 / 300% 100% no-repeat; image-rendering: pixelated;
+      animation: nf-chew 4.5s infinite;
+    }
+    .nf-page { left: 50%; margin-left: 58px; width: 60px; height: 72px; }
+    .nf-crumb { position: absolute; width: 8px; height: 8px; background: #e6e6e6; box-shadow: 0 0 0 2px #34244a; }
+    @keyframes nf-chew {
+      0%     { background-position: 0 0; animation-timing-function: steps(1, end); }
+      86%    { background-position: 100% 0; animation-timing-function: steps(1, end); }
+      90%    { background-position: 0 0; animation-timing-function: steps(1, end); }
+      100%   { background-position: 0 0; }
+    }
+    #nf-scraps { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; image-rendering: pixelated; }
+    .nf-title { font-family: var(--font-pixel); font-size: 13px; color: var(--accent-pink); text-shadow: 0 0 6px rgba(255, 0, 128, 0.5); margin: 18px 0 14px; line-height: 1.8; }
+    .nf-text { font-size: 14px; color: #aaa; margin-bottom: 28px; }
+    .nf-text code { color: var(--accent-blue); }
+    .nf-home {
+      display: inline-block; font-family: var(--font-pixel); font-size: 11px; text-decoration: none;
+      color: var(--bg); background: var(--accent-green); padding: 14px 20px; box-shadow: 4px 4px 0 var(--accent-pink);
+    }
+    .nf-home:hover { box-shadow: 4px 4px 0 var(--accent-pink), var(--glow-green); }
+    .nf-home:active { transform: translate(2px, 2px); }
+    @media (prefers-reduced-motion: reduce) {
+      .nf-cat, .nf-code::before, .nf-code::after { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <canvas id="nf-scraps"></canvas>
+  <main class="nf">
+    <div class="nf-code glitch" data-text="404">404</div>
+    <div class="nf-stage" aria-hidden="true">
+      <div class="nf-floor"></div>
+      <div class="nf-cat"></div>
+      <img class="nf-page" src="/assets/404/page.png" alt="">
+      <span class="nf-crumb" style="left: 186px; bottom: 14px"></span>
+      <span class="nf-crumb" style="left: 172px; bottom: 30px; width: 4px; height: 4px"></span>
+      <span class="nf-crumb" style="left: 92px; bottom: 16px; width: 4px; height: 4px"></span>
+    </div>
+    <h1 class="nf-title">cat ate this page</h1>
+    <p class="nf-text">Nothing left at <code id="nf-path">this URL</code>, only crumbs.</p>
+    <a class="nf-home" href="/">&gt; cd ~</a>
+  </main>
+  <script>
+    // Flying paper scraps: hand-drawn pixel sprites, 4px per pixel, positions snapped
+    // to the pixel grid, tumbling by 90deg steps and flipping - no smooth rotation,
+    // so it stays real pixel art.
+    (function () {
+      var cv = document.getElementById('nf-scraps');
+      if (!cv || !cv.getContext) return;
+      var ctx = cv.getContext('2d');
+      var PX = 4;
+      var PAL = { O: '#34244a', W: '#ececec', G: '#b9b5bd' };
+      var SPRITES = [
+        ['O.......', 'OO......', 'OWO.....', 'OWWO....', 'OWGWO...', 'OWWWWO..', 'OWWGWWO.', 'OOOOOOOO'],
+        ['OOOOOO..', 'OWWWWWO.', 'OWGGWWWO', 'OWWWWWO.', 'OWWWWO..', 'OWWWO...', 'OWWO....', 'OOO.....'],
+        ['OOOOO...', 'OWWWWO..', 'OWWWWWO.', 'OWWWWGO.', 'OWWWGGO.', 'OOOOOOO.'],
+        ['.OOOOOOOO.', 'OWWWWWWWWO', 'OWGGGGGWWO', 'OWWWWWWWO.', '.OOOOOOO..'],
+        ['.OOOO.', 'OWWWWO', 'OWGWWO', 'OWWWO.', '.OOO..'],
+        ['OOO.', 'OWWO', 'OWO.', 'OO..']
+      ];
+      var tiles = SPRITES.map(function (rows) {
+        var c = document.createElement('canvas');
+        c.width = rows[0].length * PX; c.height = rows.length * PX;
+        var x = c.getContext('2d');
+        rows.forEach(function (r, y) {
+          for (var i = 0; i < r.length; i++) {
+            if (PAL[r[i]]) { x.fillStyle = PAL[r[i]]; x.fillRect(i * PX, y * PX, PX, PX); }
+          }
+        });
+        return c;
+      });
+      var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var W, H, items = [];
+      function rnd(a, b) { return a + Math.random() * (b - a); }
+      function resize() { W = cv.width = window.innerWidth; H = cv.height = window.innerHeight; }
+      function spawn(anywhere) {
+        // corners (sprites 0-2) twice as likely as other scraps
+        var t = Math.random() < 0.6 ? Math.floor(Math.random() * 3) : 3 + Math.floor(Math.random() * 3);
+        return {
+          t: t, x: rnd(0, W), y: anywhere ? rnd(0, H) : -40,
+          vx: rnd(-25, 25), vy: rnd(12, 45), wob: rnd(0, 6.3), wobS: rnd(0.6, 1.6), wobA: rnd(20, 70),
+          rot: Math.floor(rnd(0, 4)), rotT: rnd(0.3, 1.4), flip: rnd(0, 6.3), flipS: rnd(1.5, 4),
+          a: rnd(0.5, 0.95)
+        };
+      }
+      function init() {
+        resize(); items = [];
+        var n = Math.max(8, Math.min(34, Math.round(W * H / 30000)));
+        for (var i = 0; i < n; i++) items.push(spawn(true));
+      }
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        items.forEach(function (s) {
+          var img = tiles[s.t];
+          // flip by squashing width in pixel steps: 1, 0.5, 0 (edge-on), -0.5, -1
+          var f = Math.round(Math.cos(s.flip) * 2) / 2;
+          var x = Math.round((s.x + Math.sin(s.wob) * s.wobA) / PX) * PX;
+          var y = Math.round(s.y / PX) * PX;
+          ctx.save();
+          ctx.globalAlpha = s.a;
+          ctx.translate(x, y);
+          ctx.rotate(s.rot * Math.PI / 2);
+          if (f === 0) { ctx.fillStyle = PAL.O; ctx.fillRect(-img.width / 2, -PX / 2, img.width, PX); }
+          else { ctx.scale(f, 1); ctx.drawImage(img, -img.width / 2, -img.height / 2); }
+          ctx.restore();
+        });
+      }
+      var last = 0, acc = 0;
+      function tick(now) {
+        var dt = Math.min(0.05, (now - last) / 1000 || 0); last = now; acc += dt;
+        items.forEach(function (s, i) {
+          s.x += s.vx * dt; s.y += s.vy * dt;
+          s.vx += rnd(-30, 30) * dt; s.vx = Math.max(-45, Math.min(45, s.vx));   // gusts
+          s.wob += s.wobS * dt; s.flip += s.flipS * dt;
+          s.rotT -= dt;
+          if (s.rotT <= 0) { s.rot = (s.rot + (Math.random() < 0.5 ? 1 : 3)) % 4; s.rotT = rnd(0.25, 1.4); }
+          if (s.y > H + 40 || s.x < -120 || s.x > W + 120) items[i] = spawn(false);
+        });
+        if (acc >= 1 / 20) { acc = 0; draw(); }   // 20 fps: choppy on purpose, reads as sprites
+        requestAnimationFrame(tick);
+      }
+      window.addEventListener('resize', init);
+      init();
+      if (reduced) { draw(); return; }
+      requestAnimationFrame(tick);
+    })();
+
+    (function () {
+      var el = document.getElementById('nf-path');
+      var p = location.pathname;
+      if (el && p && p !== '/404.html') el.textContent = p.length > 40 ? p.slice(0, 37) + '...' : p;
+    })();
+  </script>
+</body>
+</html>
